@@ -1,4 +1,4 @@
-# node-kraken
+# kraken-api-js
 
 JavaScript full support of [`kraken-api`](https://github.com/nothingisdead/npm-kraken-api).  
 Originally `kraken-api` is **CommonJS** friendly only. This package is a port for **CommonJS**, **ES2015 Module** and **TypeScript** support.
