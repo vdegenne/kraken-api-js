@@ -44,11 +44,13 @@ const main = async () => {
 main()
 ```
 
-## public methods
+Below is a list of the different methods you can call. To see the parameters you have to provide to each method please refer to the official [Kraken API page](https://www.kraken.com/features/api)
+
+### public methods
 
 `Time` `Assets` `AssetPairs` `Ticker` `Depth` `Trades` `Spread` `OHLC`
 
-## private methods
+### private methods
 
 `Balance` `TradeBalance` `OpenOrders` `ClosedOrders` `QueryOrders` `TradesHistory` `QueryTrades` `OpenPositions` `Ledgers` `QueryLedgers` `TradeVolume` `AddOrder` `CancelOrder` `DepositMethods` `DepositAddresses` `DepositStatus` `WithdrawInfo` `Withdraw` `WithdrawStatus` `WithdrawCancel`
 
@@ -58,5 +60,5 @@ vdegenne (at) gmail (dot) com
 
 ## support
 
-BTC donation address : 3KfrLBhWgKxnNH9hoC8ipSPYi3LW3Qrj8i
+BTC donation address : 3KfrLBhWgKxnNH9hoC8ipSPYi3LW3Qrj8i  
 ETH donation address : 0x2b168Ec72b8B6168E3A0BAFa3A2f356374C880C5

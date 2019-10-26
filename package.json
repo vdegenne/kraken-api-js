@@ -1,7 +1,7 @@
 {
   "name": "kraken-js",
-  "version": "0.0.1",
-  "description": "es-module port of kraken-api package",
+  "version": "1.0.0",
+  "description": "JavaScript full support of kraken API",
   "main": "kraken-api",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
