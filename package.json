@@ -1,0 +1,36 @@
+{
+  "name": "kraken-js",
+  "version": "0.0.1",
+  "description": "es-module port of kraken-api package",
+  "main": "kraken-api",
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc && mv _kraken.js kraken.js && npm run replace:cjs",
+    "replace:cjs": "sed -i 's/exports.KrakenClient = KrakenClient;/module.exports = KrakenClient;/g' kraken.js",
+    "build:esm": "tsc -t ES2017 -m ES2015 && npm run rename:esm",
+    "rename:esm": "mv _kraken.js kraken.mjs & mv _kraken.d.ts kraken.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdegenne/kraken-api-esm.git"
+  },
+  "keywords": [
+    "kraken",
+    "cryptocurrency",
+    "cryptocurrencies",
+    "cryptoassets"
+  ],
+  "author": "Valentin Degenne <vdegenne@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdegenne/kraken-api-esm/issues"
+  },
+  "homepage": "https://github.com/vdegenne/kraken-api-esm#readme",
+  "dependencies": {
+    "@types/got": "^9.6.7",
+    "@types/qs": "^6.5.3",
+    "got": "^9.6.0",
+    "qs": "^6.9.0"
+  },
+  "typings": "kraken.d.ts"
+}
