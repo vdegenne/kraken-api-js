@@ -1,4 +1,4 @@
-# kraken-js
+# node-kraken
 
 JavaScript full support of [`kraken-api`](https://github.com/nothingisdead/npm-kraken-api).  
 Originally `kraken-api` is **CommonJS** friendly only. This package is a port for **CommonJS**, **ES2015 Module** and **TypeScript** support.
@@ -8,19 +8,19 @@ Originally `kraken-api` is **CommonJS** friendly only. This package is a port fo
 ### CommonJS
 
 ```javascript
-const KrakenClient = require('kraken-js')
+const KrakenClient = require('kraken-api-js')
 ```
 
 ### ES-Module
 
 ```javascript
-import { KrakenClient } from 'kraken-js'
+import { KrakenClient } from 'kraken-api-js'
 ```
 
 ### TypeScript (typings included)
 
 ```javascript
-import { KrakenClient } from 'kraken-js'
+import { KrakenClient } from 'kraken-api-js'
 ```
 
 ## Usage
@@ -43,8 +43,9 @@ const main = async () => {
 
 main()
 ```
+---
 
-Below is a list of the different methods you can call. To see the parameters you have to provide to each method please refer to the official [Kraken API page](https://www.kraken.com/features/api)
+*Below is a list of the different methods you can call. To see the parameters you have to provide to each method please refer to the official [Kraken API page](https://www.kraken.com/features/api)*
 
 ### public methods
 
@@ -54,11 +55,11 @@ Below is a list of the different methods you can call. To see the parameters you
 
 `Balance` `TradeBalance` `OpenOrders` `ClosedOrders` `QueryOrders` `TradesHistory` `QueryTrades` `OpenPositions` `Ledgers` `QueryLedgers` `TradeVolume` `AddOrder` `CancelOrder` `DepositMethods` `DepositAddresses` `DepositStatus` `WithdrawInfo` `Withdraw` `WithdrawStatus` `WithdrawCancel`
 
-## Contact
+## Author
+
+Valentin Degenne
 
 vdegenne (at) gmail (dot) com
 
-## support
-
-BTC donation address : 3KfrLBhWgKxnNH9hoC8ipSPYi3LW3Qrj8i  
-ETH donation address : 0x2b168Ec72b8B6168E3A0BAFa3A2f356374C880C5
+bitcoin:3KfrLBhWgKxnNH9hoC8ipSPYi3LW3Qrj8i  
+ethereum:0x2b168Ec72b8B6168E3A0BAFa3A2f356374C880C5
