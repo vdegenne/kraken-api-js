@@ -30,15 +30,15 @@ const key = '' // your API key
 const privateKey = '' // your API private key
 const kraken = new KrakenClient(key, privateKey)
 
-// example
+/* examples */
 const main = async () => {
-  /* public endpoint */
+  // public endpoint
   const json = await kraken.api('Ticker', { pair: 'XRPUSD' })
-  console.log(json.result.XXRPZUSC.c) // print current value of XRP
+  console.log(json.result.XXRPZUSD.c) // print current USD value of XRP
 
-  /* private endpoint */
+  // private endpoint
   const json = await kraken.api('Balance')
-  console.log(json.result.XXBT) // print how much Bitcoin you have on your account right now
+  console.log(json.result.XXBT) // print how much bitcoins you have on your account right now
 }
 
 main()

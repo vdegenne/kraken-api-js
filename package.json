@@ -1,6 +1,6 @@
 {
   "name": "kraken-api-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JavaScript full support of kraken API",
   "main": "kraken",
   "scripts": {
