@@ -1,6 +1,6 @@
 import got from 'got'
 import {createHash,createHmac} from 'crypto'
-import * as qs from 'qs'
+import qs from 'qs'
 
 // Public/Private method names
 const methods = {
