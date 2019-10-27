@@ -11,10 +11,16 @@ Originally `kraken-api` is **CommonJS** friendly only. This package is a port fo
 const KrakenClient = require('kraken-api-js')
 ```
 
-### ES-Module
+### ES-Module (node < 13)
 
 ```javascript
 import { KrakenClient } from 'kraken-api-js'
+```
+
+### ES-Module (node 13+)
+
+```javascript
+import KrakenClient from 'kraken-api-js'
 ```
 
 ### TypeScript (typings included)
