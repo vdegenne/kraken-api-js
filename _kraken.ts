@@ -3,7 +3,7 @@ import {createHash,createHmac} from 'crypto'
 import qs from 'qs'
 
 // Public/Private method names
-const methods = {
+const KrakenMethods = {
   public: ['Time', 'Assets', 'AssetPairs', 'Ticker', 'Depth', 'Trades', 'Spread', 'OHLC'],
   private: ['Balance', 'TradeBalance', 'OpenOrders', 'ClosedOrders', 'QueryOrders', 'TradesHistory', 'QueryTrades', 'OpenPositions', 'Ledgers', 'QueryLedgers', 'TradeVolume', 'AddOrder', 'CancelOrder', 'DepositMethods', 'DepositAddresses', 'DepositStatus', 'WithdrawInfo', 'Withdraw', 'WithdrawStatus', 'WithdrawCancel', 'GetWebSocketsToken']
 }
@@ -57,6 +57,15 @@ const rawRequest = async (url:string, headers:any, data:any, timeout:number) => 
   return response
 }
 
+export type KrakenOptions = {
+  url?:string
+  version?:number
+  timeout?:number
+  otp?:string
+  key?:string
+  secret?:string
+}
+
 /**
  * KrakenClient connects to the Kraken.com API
  * @param {String}        key               API Key
@@ -69,7 +78,7 @@ class KrakenClient {
 
   protected config: any
 
-  constructor(key:string, secret:string, options:any) {
+  constructor(key:string, secret:string, options?:KrakenOptions|string) {
     // Allow passing the OTP as the third argument for backwards compatibility
     if (typeof options === 'string') {
       options = { otp: options }
@@ -92,9 +101,9 @@ class KrakenClient {
       params = {}
     }
 
-    if (methods.public.includes(method)) {
+    if (KrakenMethods.public.includes(method)) {
       return this.publicMethod(method, params, callback)
-    } else if (methods.private.includes(method)) {
+    } else if (KrakenMethods.private.includes(method)) {
       return this.privateMethod(method, params, callback)
     } else {
       throw new Error(method + ' is not a valid API method.')
@@ -172,4 +181,4 @@ class KrakenClient {
   }
 }
 
-export { KrakenClient }
+export { KrakenMethods, KrakenClient }

@@ -1,11 +1,11 @@
 {
   "name": "kraken-api-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "JavaScript full support of kraken API",
   "main": "kraken",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc && mv _kraken.js kraken.js && npm run replace:cjs",
+    "build:cjs": "tsc && mv _kraken.js kraken.js",
     "replace:cjs": "sed -i 's/exports.KrakenClient = KrakenClient;/module.exports = KrakenClient;/g' kraken.js",
     "build:esm": "tsc -t ES2017 -m ES2015 && npm run rename:esm",
     "rename:esm": "mv _kraken.js kraken.mjs & mv _kraken.d.ts kraken.d.ts"
