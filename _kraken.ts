@@ -94,7 +94,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  api(method:string, params:Function|any|undefined, callback?:Function) {
+  api(method:string, params:Function|any = {}, callback?:Function) {
     // Default params to empty object
     if (typeof params === 'function') {
       callback = params
