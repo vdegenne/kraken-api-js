@@ -4,7 +4,7 @@
 
 - added `GetWebSocketsToken` to the list of private methods
 
-[1.0.7] - 2019-10-28
+[1.0.8] - 2019-10-28
 
-- provide `KrakenMethods`
+- provides `KrakenMethods`
 - TypeScript more verbose types

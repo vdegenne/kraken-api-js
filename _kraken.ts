@@ -94,7 +94,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  api(method:string, params:any, callback:Function) {
+  api(method:string, params:Function|any|undefined, callback?:Function) {
     // Default params to empty object
     if (typeof params === 'function') {
       callback = params
@@ -117,7 +117,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  publicMethod(method:string, params:any, callback:Function) {
+  publicMethod(method:string, params:any, callback?:Function) {
     params = params || {}
 
     // Default params to empty object
@@ -130,8 +130,8 @@ class KrakenClient {
     const url = this.config.url + path
     const response = rawRequest(url, {}, params, this.config.timeout)
 
-    if (typeof callback === 'function') {
-      response.then(result => callback(null, result)).catch(error => callback(error, null))
+    if (callback !== undefined && typeof callback === 'function') {
+      response.then(result => (callback as Function)(null, result)).catch(error => (callback as Function)(error, null))
     }
 
     return response
@@ -144,7 +144,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  privateMethod(method:string, params:any, callback:Function) {
+  privateMethod(method:string, params:any, callback?:Function) {
     params = params || {}
 
     // Default params to empty object
@@ -173,8 +173,8 @@ class KrakenClient {
 
     const response = rawRequest(url, headers, params, this.config.timeout)
 
-    if (typeof callback === 'function') {
-      response.then(result => callback(null, result)).catch(error => callback(error, null))
+    if (callback !== undefined && typeof callback === 'function') {
+      response.then(result => (callback as Function)(null, result)).catch(error => (callback as Function)(error, null))
     }
 
     return response

@@ -8,19 +8,13 @@ Originally `kraken-api` is **CommonJS** friendly only. This package is a port fo
 ### CommonJS
 
 ```javascript
-const KrakenClient = require('kraken-api-js')
+const { KrakenClient } = require('kraken-api-js')
 ```
 
-### ES-Module (node < 13)
+### ES-Module
 
 ```javascript
 import { KrakenClient } from 'kraken-api-js'
-```
-
-### ES-Module (node 13+)
-
-```javascript
-import KrakenClient from 'kraken-api-js'
 ```
 
 ### TypeScript (typings included)
@@ -60,6 +54,19 @@ main()
 ### private methods
 
 `Balance` `TradeBalance` `OpenOrders` `ClosedOrders` `QueryOrders` `TradesHistory` `QueryTrades` `OpenPositions` `Ledgers` `QueryLedgers` `TradeVolume` `AddOrder` `CancelOrder` `DepositMethods` `DepositAddresses` `DepositStatus` `WithdrawInfo` `Withdraw` `WithdrawStatus` `WithdrawCancel` `GetWebSocketsToken`
+
+### import methods list
+
+The array of both public and private methods can be imported into your project
+
+```javascript
+/* commonjs */
+const { KrakenMethods } = require('kraken-api-js')
+
+/* es-module & typescript */
+import { KrakenMethods } from 'kraken-api-js'
+```
+
 
 ## Author
 
