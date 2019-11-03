@@ -8,3 +8,8 @@
 
 - provides `KrakenMethods`
 - TypeScript more verbose types
+
+[1.1.0] - 2019-11-03
+
+- `api` returns the response as-is
+- replace `got` with `fetch`

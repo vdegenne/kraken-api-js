@@ -1,9 +1,18 @@
-import got from 'got'
+import fetch from 'node-fetch'
 import {createHash,createHmac} from 'crypto'
 import qs from 'qs'
 
+export type KrakenOptions = {
+  url?:string
+  version?:number
+  timeout?:number
+  otp?:string
+  key?:string
+  secret?:string
+}
+
 // Public/Private method names
-const KrakenMethods = {
+export const KrakenMethods = {
   public: ['Time', 'Assets', 'AssetPairs', 'Ticker', 'Depth', 'Trades', 'Spread', 'OHLC'],
   private: ['Balance', 'TradeBalance', 'OpenOrders', 'ClosedOrders', 'QueryOrders', 'TradesHistory', 'QueryTrades', 'OpenPositions', 'Ledgers', 'QueryLedgers', 'TradeVolume', 'AddOrder', 'CancelOrder', 'DepositMethods', 'DepositAddresses', 'DepositStatus', 'WithdrawInfo', 'Withdraw', 'WithdrawStatus', 'WithdrawCancel', 'GetWebSocketsToken']
 }
@@ -21,10 +30,8 @@ const getMessageSignature = (path:string, request:any, secret:string, nonce:stri
   const secret_buffer = Buffer.from(secret, 'base64')
   const hash = createHash('sha256')
   const hmac = createHmac('sha512', secret_buffer)
-  // @ts-ignore
-  const hash_digest = hash.update(nonce + message).digest('binary')
-  // @ts-ignore
-  const hmac_digest = hmac.update(path + hash_digest, 'binary').digest('base64')
+  const hash_digest = hash.update(nonce + message).digest('latin1')
+  const hmac_digest = hmac.update(path + hash_digest, 'latin1').digest('base64')
 
   return hmac_digest
 }
@@ -33,37 +40,18 @@ const getMessageSignature = (path:string, request:any, secret:string, nonce:stri
 const rawRequest = async (url:string, headers:any, data:any, timeout:number) => {
   // Set custom User-Agent string
   headers['User-Agent'] = 'Kraken Javascript API Client'
-
-  const options = { headers, timeout }
-
-  Object.assign(options, {
+  headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  
+  const options = { 
+    headers,
     method: 'POST',
-    body: qs.stringify(data)
-  })
-
-  const { body } = await got(url, options)
-  const response = JSON.parse(body)
-
-  if (response.error && response.error.length) {
-    const error = response.error.filter((e:string) => e.startsWith('E')).map((e:string) => e.substr(1))
-
-    if (!error.length) {
-      throw new Error('Kraken API returned an unknown error')
-    }
-
-    throw new Error(error.join(', '))
+    body: qs.stringify(data),
+    timeout
   }
 
-  return response
-}
+  const response = await fetch(url, options)
 
-export type KrakenOptions = {
-  url?:string
-  version?:number
-  timeout?:number
-  otp?:string
-  key?:string
-  secret?:string
+  return await response.json()
 }
 
 /**
@@ -74,7 +62,7 @@ export type KrakenOptions = {
  * @param {String}        [options.otp]     Two-factor password (optional) (also, doesn't work)
  * @param {Number}        [options.timeout] Maximum timeout (in milliseconds) for all API-calls (passed to `request`)
  */
-class KrakenClient {
+export class KrakenClient {
 
   protected config: any
 
@@ -84,7 +72,11 @@ class KrakenClient {
       options = { otp: options }
     }
 
-    this.config = Object.assign({ key, secret }, defaults, options)
+    this.config = {
+      key, secret,
+      ...defaults,
+      ...options
+    }
   }
 
   /**
@@ -94,12 +86,12 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  api(method:string, params:Function|any = {}, callback?:Function) {
+  api(method:string, params:any|Function = {}, callback?:Function) {
     // Default params to empty object
-    if (typeof params === 'function') {
-      callback = params
-      params = {}
-    }
+    // if (typeof params === 'function') {
+    //   callback = params
+    //   params = {}
+    // }
 
     if (KrakenMethods.public.includes(method)) {
       return this.publicMethod(method, params, callback)
@@ -117,9 +109,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  publicMethod(method:string, params:any, callback?:Function) {
-    params = params || {}
-
+  publicMethod(method:string, params:any|Function = {}, callback?:Function) {
     // Default params to empty object
     if (typeof params === 'function') {
       callback = params
@@ -130,7 +120,7 @@ class KrakenClient {
     const url = this.config.url + path
     const response = rawRequest(url, {}, params, this.config.timeout)
 
-    if (callback !== undefined && typeof callback === 'function') {
+    if (callback) {
       response.then(result => (callback as Function)(null, result)).catch(error => (callback as Function)(error, null))
     }
 
@@ -144,9 +134,7 @@ class KrakenClient {
 	 * @param  {Function} callback A callback function to be executed when the request is complete
 	 * @return {Object}            The request object
 	 */
-  privateMethod(method:string, params:any, callback?:Function) {
-    params = params || {}
-
+  privateMethod(method:string, params:any|Function = {}, callback?:Function) {
     // Default params to empty object
     if (typeof params === 'function') {
       callback = params
@@ -173,12 +161,10 @@ class KrakenClient {
 
     const response = rawRequest(url, headers, params, this.config.timeout)
 
-    if (callback !== undefined && typeof callback === 'function') {
+    if (callback) {
       response.then(result => (callback as Function)(null, result)).catch(error => (callback as Function)(error, null))
     }
 
     return response
   }
 }
-
-export { KrakenMethods, KrakenClient }

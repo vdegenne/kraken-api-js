@@ -1,6 +1,6 @@
 {
   "name": "kraken-api-js",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "JavaScript full support of kraken API",
   "main": "kraken",
   "scripts": {
@@ -28,10 +28,12 @@
   },
   "homepage": "https://github.com/vdegenne/kraken-api-js#readme",
   "dependencies": {
-    "@types/got": "^9.6.7",
     "@types/qs": "^6.5.3",
-    "got": "^9.6.0",
     "qs": "^6.9.0"
   },
-  "typings": "kraken.d.ts"
+  "typings": "kraken.d.ts",
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.3",
+    "node-fetch": "^2.6.0"
+  }
 }
