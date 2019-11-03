@@ -13,3 +13,7 @@
 
 - `api` returns the response as-is
 - replace `got` with `fetch`
+
+[1.1.1] - 2019-11-03
+
+- include `node-fetch` in the dependencies
